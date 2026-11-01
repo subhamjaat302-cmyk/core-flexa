@@ -451,17 +451,22 @@
             document.getElementById('modal-step-payment').classList.remove('hidden');
         }
 
-        // Integrated Live Razorpay Payment Function
+        // Integrated Live Razorpay Payment Function (Corrected with Payload)
         async function completeOrderPayment() {
             try {
-                // 1. Call your live Firebase Cloud Function to create the order securely on the backend
+                // 1. Call your live Firebase Cloud Function with correct request body
                 const response = await fetch('https://us-central1-core-flexa.cloudfunctions.net/createOrder', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        amount: 89800, // ₹898 in paise
+                        currency: 'INR' 
+                    })
                 });
                 
                 if (!response.ok) {
-                    throw new Error("Failed to create order from server.");
+                    const errorText = await response.text();
+                    throw new Error(`Server error (${response.status}): ${errorText}`);
                 }
 
                 const order = await response.json();
