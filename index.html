@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Flex - FIT PICK Sweat Belt</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Razorpay Checkout Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#16a34a',
+                            dark: '#15803d',
+                            light: '#dcfce7',
+                            accent: '#22c55e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white text-gray-900 font-sans antialiased selection:bg-brand-light selection:text-brand-dark">
+
+    <!-- Top Announcement & Trust Sticky Bar -->
+    <div class="bg-brand text-white text-xs sm:text-sm py-2 px-4 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-6 overflow-x-auto whitespace-nowrap py-1">
+                <span><i class="fa-solid fa-headset mr-1"></i> 24*7 Support</span>
+                <span><i class="fa-solid fa-truck-fast mr-1"></i> Shipping in 2 to 5 days</span>
+                <span><i class="fa-solid fa-money-bill-wave mr-1"></i> Cash on Delivery Available</span>
+                <span><i class="fa-solid fa-star text-yellow-300 mr-1"></i> 4.9* Reviews</span>
+                <span><i class="fa-solid fa-fire text-orange-300 mr-1"></i> 1K+ Bought in Past Month</span>
+            </div>
+            <div id="auth-header-section" class="flex items-center gap-3 ml-auto">
+                <button id="google-signin-btn" onclick="handleGoogleSignIn()" class="bg-white text-gray-800 px-3 py-1 rounded-full text-xs font-semibold shadow hover:bg-gray-100 transition flex items-center gap-2">
+                    <i class="fa-brands fa-google text-red-500"></i> Sign In with Google
+                </button>
+                <div id="user-profile" class="hidden items-center gap-2 text-xs font-medium">
+                    <img id="user-avatar" src="" alt="User" class="w-6 h-6 rounded-full border border-white">
+                    <span id="user-name"></span>
+                    <button onclick="handleSignOut()" class="text-white hover:text-red-200 underline ml-2">Sign Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation / Header -->
+    <header class="border-b border-gray-100 bg-white sticky top-[37px] sm:top-[41px] z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-brand text-white p-2 rounded-xl font-black text-xl tracking-wider">CF</div>
+                <div>
+                    <span class="text-2xl font-black tracking-tight text-gray-900">Core Flex</span>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">Official Store • Owner: Neelam Deshwal</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 text-sm text-gray-600 hidden md:flex">
+                <a href="tel:9671151565" class="hover:text-brand transition"><i class="fa-solid fa-phone mr-1"></i> 9671151565</a>
+                <a href="mailto:subhamjaat302@gmail.com" class="hover:text-brand transition"><i class="fa-solid fa-envelope mr-1"></i> subhamjaat302@gmail.com</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            
+            <!-- Left Column: Image Showcase & Slideshow -->
+            <div class="lg:col-span-7 space-y-4 sticky top-28">
+                <div class="relative bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 shadow-inner group aspect-square flex items-center justify-center">
+                    <img id="main-showcase-image" src="main.jpg" alt="FIT PICK Sweat Belt" class="w-full h-full object-contain p-4 transition duration-300">
+                    <span class="absolute top-4 left-4 bg-brand text-white text-xs font-bold px-3 py-1 rounded-full shadow">71% OFF</span>
+                </div>
+                <!-- Thumbnail Slideshow Bar -->
+                <div class="grid grid-cols-6 gap-2">
+                    <button onclick="switchImage('main.jpg', this)" class="thumb-btn border-2 border-brand rounded-lg overflow-hidden aspect-square bg-gray-50 hover:opacity-80 transition">
+                        <img src="main.jpg" alt="Main" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchImage('main1.jpg', this)" class="thumb-btn border-2 border-transparent rounded-lg overflow-hidden aspect-square bg-gray-50 hover:opacity-80 transition">
+                        <img src="main1.jpg" alt="Slide 1" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchImage('main2.jpg', this)" class="thumb-btn border-2 border-transparent rounded-lg overflow-hidden aspect-square bg-gray-50 hover:opacity-80 transition">
+                        <img src="main2.jpg" alt="Slide 2" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchImage('main3.jpg', this)" class="thumb-btn border-2 border-transparent rounded-lg overflow-hidden aspect-square bg-gray-50 hover:opacity-80 transition">
+                        <img src="main3.jpg" alt="Slide 3" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchImage('main4.jpg', this)" class="thumb-btn border-2 border-transparent rounded-lg overflow-hidden aspect-square bg-gray-50 hover:opacity-80 transition">
+                        <img src="main4.jpg" alt="Slide 4" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchImage('main5.jpg', this)" class="thumb-btn border-2 border-transparent rounded-lg overflow-hidden aspect-square bg-gray-50 hover:opacity-80 transition">
+                        <img src="main5.jpg" alt="Slide 5" class="w-full h-full object-cover">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Column: Product Details & Purchase Actions -->
+            <div class="lg:col-span-5 space-y-6">
+                <div>
+                    <span class="bg-brand-light text-brand-dark text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">FIT PICK Official</span>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2 leading-snug">
+                        FIT PICK Sweat Belt, Stomach Belt for Women and Men Non-Tearable, Sauna Belt Waist Trainer, Black
+                    </h1>
+                    <div class="flex items-center gap-2 mt-2">
+                        <div class="text-yellow-400 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <span class="text-sm font-bold text-gray-700">4.9 / 5.0</span>
+                        <span class="text-xs text-gray-400">(1,420 Verified Ratings)</span>
+                    </div>
+                </div>
+
+                <!-- Price Block -->
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 flex items-baseline gap-4">
+                    <span class="text-3xl sm:text-4xl font-black text-brand">₹898</span>
+                    <span class="text-lg text-gray-400 line-through">₹2999</span>
+                    <span class="text-sm font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded">Save 71%</span>
+                </div>
+
+                <!-- Quick Attributes Grid -->
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                    <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100"><span class="text-gray-500 block">Size</span> <strong class="text-gray-800 text-sm">46 inches</strong></div>
+                    <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100"><span class="text-gray-500 block">Material</span> <strong class="text-gray-800 text-sm">Neoprene / SBR</strong></div>
+                    <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100"><span class="text-gray-500 block">Use For</span> <strong class="text-gray-800 text-sm">Stomach / Waist</strong></div>
+                    <div class="bg-gray-50 p-2.5 rounded-lg border border-gray-100"><span class="text-gray-500 block">Closure Type</span> <strong class="text-gray-800 text-sm">Hook and Loop</strong></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="space-y-3 pt-2">
+                    <button onclick="handleBuyNow()" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2 text-lg">
+                        <i class="fa-solid fa-bag-shopping"></i> Buy Now (Secure Checkout)
+                    </button>
+                    <button onclick="handleAddToCart()" class="w-full bg-brand-light text-brand-dark hover:bg-green-200 font-bold py-3 px-6 rounded-xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="grid grid-cols-3 gap-2 text-center pt-4 border-t border-gray-100 text-xs text-gray-600">
+                    <div class="p-2 bg-gray-50 rounded-lg"><i class="fa-solid fa-shield-halved text-brand text-base mb-1 block"></i> 100% Secure & Encrypted</div>
+                    <div class="p-2 bg-gray-50 rounded-lg"><i class="fa-solid fa-rotate-left text-brand text-base mb-1 block"></i> Easy Returns</div>
+                    <div class="p-2 bg-gray-50 rounded-lg"><i class="fa-solid fa-truck text-brand text-base mb-1 block"></i> Express Delivery</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Features & Comprehensive Description Section -->
+        <section class="mt-16 space-y-10 border-t border-gray-100 pt-12">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <h2 class="text-2xl sm:text-3xl font-black text-gray-900">Product Highlights & Features</h2>
+                <p class="text-gray-500 text-sm">Engineered for maximum sweat production, core activation, and ultimate workout support.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 space-y-3">
+                    <div class="w-10 h-10 bg-brand-light text-brand rounded-xl flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-fire"></i></div>
+                    <h3 class="font-bold text-lg text-gray-900">Quality Material</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Made of SBR material for superior softness and elasticity. Extra wide design covers the entire stomach. 100% latex-free waist trainer belt.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 space-y-3">
+                    <div class="w-10 h-10 bg-brand-light text-brand rounded-xl flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-bolt"></i></div>
+                    <h3 class="font-bold text-lg text-gray-900">Sauna Belt Tone Effectively</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">3X Toning Process helps produce healthy sweat, enhances workouts, relieves back pain, supports posture, and activates core muscles.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 space-y-3">
+                    <div class="w-10 h-10 bg-brand-light text-brand rounded-xl flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-hands-bubbles"></i></div>
+                    <h3 class="font-bold text-lg text-gray-900">Easy Care & Washing Tips</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed"><strong>First Use:</strong> Wipe with wet cloth and dry flat.<br><strong>After Use:</strong> Soap wipe inside and rinse clean. Air dry.</p>
+                </div>
+            </div>
+
+            <!-- Detailed Specifications Table -->
+            <div class="bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-100 max-w-4xl mx-auto">
+                <h3 class="font-bold text-lg text-gray-900 mb-4 pb-2 border-b border-gray-200">Technical Specifications</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-8 text-sm">
+                    <div class="flex justify-between py-1 border-b border-gray-200/50"><span class="text-gray-500">Brand</span> <span class="font-semibold">FIT PICK</span></div>
+                    <div class="flex justify-between py-1 border-b border-gray-200/50"><span class="text-gray-500">Size</span> <span class="font-semibold">46 inches</span></div>
+                    <div class="flex justify-between py-1 border-b border-gray-200/50"><span class="text-gray-500">Colour</span> <span class="font-semibold">Black</span></div>
+                    <div class="flex justify-between py-1 border-b border-gray-200/50"><span class="text-gray-500">Material</span> <span class="font-semibold">Neoprene</span></div>
+                    <div class="flex justify-between py-1 border-b border-gray-200/50"><span class="text-gray-500">Product Benefits</span> <span class="font-semibold">Waist Reduction, Weight Loss</span></div>
+                    <div class="flex justify-between py-1 border-b border-gray-200/50"><span class="text-gray-500">Closure Type</span> <span class="font-semibold">Hook and Loop</span></div>
+                    <div class="flex justify-between py-1 border-b border-gray-200/50"><span class="text-gray-500">Product Dimensions</span> <span class="font-semibold">20.3L x 12.7W cm</span></div>
+                    <div class="flex justify-between py-1 border-b border-gray-200/50"><span class="text-gray-500">Fit Type</span> <span class="font-semibold">Regular</span></div>
+                </div>
+                <div class="mt-4 p-3 bg-yellow-50 text-yellow-800 text-xs rounded-lg border border-yellow-200">
+                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> <strong>Allergy Warning:</strong> If you experience an allergic reaction to Neoprene, please discontinue use and consult with your doctor.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-20 py-12 px-4">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+            <div>
+                <h4 class="text-lg font-bold mb-3 text-brand-accent">Core Flex</h4>
+                <p class="text-gray-400">Your ultimate fitness partner for premium sports and workout gear. Engineered for peak performance.</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-3 text-brand-accent">Store Owner Contact</h4>
+                <p class="text-gray-400">Owner Name: <strong>Neelam Deshwal</strong></p>
+                <p class="text-gray-400">Mobile: <a href="tel:9671151565" class="hover:text-white">9671151565</a></p>
+                <p class="text-gray-400">Email: <a href="mailto:subhamjaat302@gmail.com" class="hover:text-white">subhamjaat302@gmail.com</a></p>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-3 text-brand-accent">Secure Payments</h4>
+                <p class="text-gray-400 mb-2">All transactions are 256-bit SSL encrypted and end-to-end secure.</p>
+                <div class="flex gap-2 text-2xl text-gray-300">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-solid fa-building-columns"></i>
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-8 pt-6 border-t border-gray-800 text-center text-xs text-gray-500">
+            © 2026 Core Flex (Store ID: core-flexa). All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Sticky WhatsApp Floating Button -->
+    <a href="https://wa.me/919671151565?text=Hi%20Core%20Flex,%20I%20want%20to%20know%20more%20about%20the%20FIT%20PICK%20Sweat%20Belt" target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-2xl transition transform hover:scale-110 z-50" title="Chat with Us on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Checkout / Authentication Modal -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-6 relative animate-in fade-in zoom-in duration-200">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+
+            <!-- Step 1: Sign-In Required View -->
+            <div id="modal-step-auth" class="space-y-4 text-center py-4">
+                <div class="w-12 h-12 bg-brand-light text-brand rounded-full flex items-center justify-center mx-auto text-xl font-bold">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900">Sign In Required</h3>
+                <p class="text-sm text-gray-600">You must sign in with your Google account first to proceed securely with your order and payment.</p>
+                <button onclick="handleGoogleSignIn()" class="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 font-semibold py-3 px-4 rounded-xl shadow-sm transition flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-google text-red-500 text-lg"></i> Continue with Google
+                </button>
+            </div>
+
+            <!-- Step 2: Shipping Details Form -->
+            <div id="modal-step-shipping" class="space-y-4 hidden">
+                <div class="flex items-center justify-between pb-2 border-b border-gray-100">
+                    <h3 class="text-lg font-bold text-gray-900">Delivery Information</h3>
+                    <span class="text-xs text-brand font-semibold">Step 1 of 2</span>
+                </div>
+                <form id="shipping-form" onsubmit="proceedToPayment(event)" class="space-y-3 text-left">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Full Name</label>
+                        <input type="text" id="ship-name" required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand" placeholder="Enter your full name">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Phone Number</label>
+                        <input type="tel" id="ship-phone" required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand" placeholder="10-digit mobile number" value="9671151565">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Complete Delivery Address</label>
+                        <textarea id="ship-address" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand" placeholder="House no, Street, Landmark, City, Pincode"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 rounded-xl transition shadow">
+                        Proceed to Secure Payment (₹898)
+                    </button>
+                </form>
+            </div>
+
+            <!-- Step 3: Secure Payment Menu -->
+            <div id="modal-step-payment" class="space-y-4 hidden">
+                <div class="flex items-center justify-between pb-2 border-b border-gray-100">
+                    <h3 class="text-lg font-bold text-gray-900">Secure Payment</h3>
+                    <span class="text-xs text-brand font-semibold">256-bit SSL Encrypted</span>
+                </div>
+                <div class="bg-gray-50 p-3 rounded-xl text-xs space-y-1 text-gray-600">
+                    <p><strong>Item:</strong> FIT PICK Sweat Belt (46")</p>
+                    <p><strong>Total Amount:</strong> ₹898 (71% Discount Applied)</p>
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-xs font-semibold text-gray-700">Select Payment Gateway</label>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="pay-method" value="Razorpay" checked class="text-brand"> 
+                            <i class="fa-solid fa-credit-card text-brand"></i> Razorpay Secure Checkout (UPI, Card, Netbanking)
+                        </label>
+                    </div>
+                </div>
+                <button onclick="completeOrderPayment()" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3.5 rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-lock"></i> Pay ₹898 Securely
+                </button>
+            </div>
+
+            <!-- Step 4: Success Confirmation View -->
+            <div id="modal-step-success" class="space-y-4 text-center py-6 hidden">
+                <div class="w-16 h-16 bg-green-100 text-brand rounded-full flex items-center justify-center mx-auto text-3xl">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 class="text-2xl font-black text-gray-900">Order Placed Successfully!</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                    Your payment has been verified. Your product will arrive at your doorstep within <strong>2 to 5 working days</strong>.
+                </p>
+                <div class="bg-gray-50 p-3 rounded-xl text-xs text-gray-500">
+                    Order details & notifications have been securely sent for owner <strong>Neelam Deshwal</strong>.
+                </div>
+                <button onclick="closeModal()" class="w-full bg-gray-900 text-white font-bold py-3 rounded-xl hover:bg-gray-800 transition">
+                    Done / Return to Store
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK & App Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, browserLocalPersistence, setPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA2dN_ZC08hF1moI_9bCc_-aDlkxlSA4bw",
+            authDomain: "core-flexa.firebaseapp.com",
+            projectId: "core-flexa",
+            storageBucket: "core-flexa.firebasestorage.app",
+            messagingSenderId: "26954187941",
+            appId: "1:26954187941:web:a0996d30ab7e293446394c",
+            measurementId: "G-76V292QDP2"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        // Ensure user stays signed in across sessions
+        setPersistence(auth, browserLocalPersistence)
+            .catch((error) => {
+                console.error("Auth persistence error:", error);
+            });
+
+        let currentUser = null;
+
+        // Monitor Auth State
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            const signinBtn = document.getElementById('google-signin-btn');
+            const userProfile = document.getElementById('user-profile');
+            const userNameSpan = document.getElementById('user-name');
+            const userAvatar = document.getElementById('user-avatar');
+
+            if (user) {
+                signinBtn.classList.add('hidden');
+                userProfile.classList.remove('hidden');
+                userProfile.classList.add('flex');
+                userNameSpan.textContent = user.displayName || 'User';
+                if (user.photoURL) userAvatar.src = user.photoURL;
+
+                // Pre-fill name if available
+                const nameInput = document.getElementById('ship-name');
+                if (nameInput && !nameInput.value) nameInput.value = user.displayName || '';
+            } else {
+                signinBtn.classList.remove('hidden');
+                userProfile.classList.add('hidden');
+                userProfile.classList.remove('flex');
+            }
+        });
+
+        // Global Google Sign In function
+        window.handleGoogleSignIn = async function() {
+            const provider = new GoogleAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                console.log("Signed in successfully:", result.user);
+                const authStep = document.getElementById('modal-step-auth');
+                if (!authStep.classList.contains('hidden')) {
+                    authStep.classList.add('hidden');
+                    document.getElementById('modal-step-shipping').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error("Google Sign-In Error:", error);
+                alert("Sign-in failed: " + error.message);
+            }
+        }
+
+        window.handleSignOut = function() {
+            signOut(auth).then(() => {
+                console.log("Signed out successfully");
+            }).catch((error) => {
+                console.error("Sign out error", error);
+            });
+        }
+    </script>
+
+    <!-- Page Interaction & Razorpay Integration Script -->
+    <script>
+        // Slideshow Switch Image
+        function switchImage(filename, btnElement) {
+            document.getElementById('main-showcase-image').src = filename;
+            document.querySelectorAll('.thumb-btn').forEach(btn => {
+                btn.classList.remove('border-brand');
+                btn.classList.add('border-transparent');
+            });
+            btnElement.classList.remove('border-transparent');
+            btnElement.classList.add('border-brand');
+        }
+
+        function handleBuyNow() {
+            openCheckoutModal();
+        }
+
+        function handleAddToCart() {
+            alert("FIT PICK Sweat Belt added to your cart successfully!");
+        }
+
+        function openCheckoutModal() {
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.remove('hidden');
+            
+            const userProfileVisible = !document.getElementById('user-profile').classList.contains('hidden');
+            
+            if (userProfileVisible) {
+                document.getElementById('modal-step-auth').classList.add('hidden');
+                document.getElementById('modal-step-shipping').classList.remove('hidden');
+            } else {
+                document.getElementById('modal-step-auth').classList.remove('hidden');
+                document.getElementById('modal-step-shipping').classList.add('hidden');
+            }
+            document.getElementById('modal-step-payment').classList.add('hidden');
+            document.getElementById('modal-step-success').classList.add('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        let orderData = {};
+
+        function proceedToPayment(event) {
+            event.preventDefault();
+            orderData.name = document.getElementById('ship-name').value;
+            orderData.phone = document.getElementById('ship-phone').value;
+            orderData.address = document.getElementById('ship-address').value;
+
+            document.getElementById('modal-step-shipping').classList.add('hidden');
+            document.getElementById('modal-step-payment').classList.remove('hidden');
+        }
+
+        // Integrated Live Razorpay Payment Function
+        async function completeOrderPayment() {
+            try {
+                // 1. Call your live Firebase Cloud Function to create the order securely on the backend
+                const response = await fetch('https://us-central1-core-flexa.cloudfunctions.net/createOrder', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                if (!response.ok) {
+                    throw new Error("Failed to create order from server.");
+                }
+
+                const order = await response.json();
+
+                // 2. Configure Razorpay options
+                const options = {
+                    "key": "rzp_live_TtXFrtQqI9fPa9", // Live Key ID
+                    "amount": order.amount, 
+                    "currency": order.currency,
+                    "name": "Core Flex",
+                    "description": "FIT PICK Sweat Belt (46\")",
+                    "order_id": order.id, 
+                    "handler": function (response){
+                        console.log("Payment Successful!", response);
+                        // Hide payment step and show success confirmation
+                        document.getElementById('modal-step-payment').classList.add('hidden');
+                        document.getElementById('modal-step-success').classList.remove('hidden');
+                    },
+                    "prefill": {
+                        "name": orderData.name || "Customer",
+                        "email": "subhamjaat302@gmail.com",
+                        "contact": orderData.phone || "9671151565"
+                    },
+                    "theme": {
+                        "color": "#16a34a"
+                    }
+                };
+
+                // 3. Open the Razorpay payment popup
+                const rzp = new Razorpay(options);
+                rzp.open();
+
+            } catch (error) {
+                console.error("Payment initialization failed:", error);
+                alert("Could not initiate secure payment. Please check your connection and try again.");
+            }
+        }
+    </script>
+</body>
+</html>
